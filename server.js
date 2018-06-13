@@ -2,8 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import FacebookStrategy from 'passport-facebook';
 import GoogleStrategy from 'passport-google-oauth20';
-import { facebook, google } from './config';
-import { Server } from 'net';
+import { facebook, google } from './config/keys';
 
 const transformFacebookProfile = profile => ({
   name: profile.name,
@@ -66,8 +65,8 @@ app.get(
     res.redirect('OAuthLogin://login?user=' + JSON.stringify(req.user))
 );
 
-// Launch server on port 3000
-const server = app.listen(3000, () => {
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, () => {
   const { address, port } = server.address();
   console.log(`Listening at http://${address}:${port}`);
 });
